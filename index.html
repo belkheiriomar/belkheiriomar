@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>منصة التسجيل الداخلية للكلية</title>
+  <style>
+    :root{--bg:#0b1220;--card:#12203b;--line:#274064;--text:#eaf1ff;--muted:#9fb2d6;--ok:#22c55e;--warn:#f59e0b;--bad:#ef4444;--pri:#2dd4bf}
+    *{box-sizing:border-box} body{margin:0;font-family:"Cairo",system-ui,sans-serif;background:var(--bg);color:var(--text)}
+    .top{position:sticky;top:0;background:#0b1220dd;backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .brand{font-weight:800} .chips{display:flex;gap:8px;flex-wrap:wrap} .chip{padding:8px 12px;border:1px solid var(--line);border-radius:999px;cursor:pointer}
+    .chip.active{border-color:var(--pri);background:#15344a}
+    .wrap{max-width:1100px;margin:16px auto;padding:0 16px;display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+    @media(max-width:900px){.wrap{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+    .hd{padding:12px 14px;border-bottom:1px solid var(--line);font-weight:700}.bd{padding:14px}
+    .grid{display:grid;gap:10px}.two{grid-template-columns:1fr 1fr}@media(max-width:700px){.two{grid-template-columns:1fr}}
+    label{display:block;font-size:12px;margin-bottom:4px;color:#d7e4ff;font-weight:700}
+    input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:#0f1a31;color:var(--text)}
+    textarea{min-height:88px}
+    .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.btn{border:0;padding:10px 12px;border-radius:10px;font-weight:800;cursor:pointer}
+    .btn.pri{background:linear-gradient(135deg,#2dd4bf,#22c55e);color:#052722}.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+    .btn.warn{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#332100}
+    .tag{display:inline-block;padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-size:12px}
+    .ok{background:#153926;border-color:#2c8e4c}.warn2{background:#3a2a12;border-color:#b07a1b}.bad{background:#3e171d;border-color:#a43b4b}
+    .list{display:grid;gap:8px}.item{background:#0d182e;border:1px solid var(--line);border-radius:10px;padding:10px}
+    .muted{color:var(--muted);font-size:12px}.hidden{display:none}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div class="brand">المنصة الداخلية للكلية</div>
+    <div class="chips" id="nav">
+      <div class="chip active" data-page="home">الرئيسية</div>
+      <div class="chip" data-page="register">التسجيل</div>
+      <div class="chip" data-page="admin">الإدارة</div>
+      <div class="chip" data-page="verify">تحقق</div>
+    </div>
+    <span class="tag" id="pillRole">الدور: زائر</span>
+    <span class="tag" id="pillState">التسجيل: —</span>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="hd" id="title">الرئيسية</div>
+      <div class="bd">
+        <section id="page_home">
+          <p>نسخة مبسطة ومصححة لعملية التسجيل: <b>إنشاء ملف</b> → <b>حفظ</b> → <b>إرسال نهائي</b> مع التحقق من الحقول والوثائق.</p>
+          <div class="grid two">
+            <div><label>الدور</label><select id="role"><option value="visitor">زائر</option><option value="applicant">مترشح</option><option value="admin">إدارة</option></select></div>
+            <div><label>حالة التسجيل</label><select id="open"><option value="true">مفتوح</option><option value="false">مغلق</option></select></div>
+          </div>
+          <div class="btns"><button class="btn pri" id="btnApplyRole">تطبيق</button><button class="btn ghost" id="btnReset">إعادة ضبط البيانات</button></div>
+        </section>
+
+        <section id="page_register" class="hidden">
+          <div class="grid two">
+            <div><label>الفئة</label><select id="category"><option value="">اختر</option><option value="RES">RES</option><option value="IMP">IMP</option><option value="PHD">PHD</option></select></div>
+            <div><label>الاسم</label><input id="name" placeholder="الاسم واللقب" /></div>
+            <div><label>البريد الإلكتروني</label><input id="email" type="email" /></div>
+            <div><label>الهاتف</label><input id="phone" /></div>
+            <div><label>القسم</label><input id="department" /></div>
+            <div><label>المؤسسة المستقبلة</label><input id="host" /></div>
+            <div><label>بداية التربص</label><input id="start" type="date" /></div>
+            <div><label>نهاية التربص</label><input id="end" type="date" /></div>
+            <div class="hidden" id="supervisorWrap"><label>المشرف (إلزامي لـ PHD)</label><input id="supervisor" /></div>
+          </div>
+
+          <div style="margin-top:10px">
+            <label>الأهداف</label><textarea id="goals"></textarea>
+          </div>
+
+          <div class="item" style="margin-top:10px">
+            <b>الوثائق (محاكاة رفع):</b>
+            <div class="muted">أدخل اسم الملف لكل وثيقة إلزامية.</div>
+            <div id="docs" class="list" style="margin-top:8px"></div>
+          </div>
+
+          <label style="margin-top:10px"><input type="checkbox" id="consent" /> أوافق على معالجة المعطيات الشخصية</label>
+          <div id="errors" class="muted" style="color:#ffc7cf"></div>
+          <div class="btns">
+            <button class="btn pri" id="btnSave">حفظ كمسودة</button>
+            <button class="btn warn" id="btnSubmit">إرسال نهائي</button>
+            <button class="btn ghost" id="btnNew">ملف جديد</button>
+          </div>
+          <div class="item" style="margin-top:12px"><b>رقم الملف:</b> <span id="appNo">—</span> • <b>الحالة:</b> <span id="status">DRAFT</span></div>
+        </section>
+
+        <section id="page_admin" class="hidden">
+          <p class="muted">لوحة الإدارة: عرض الملفات وتعديل الحالة.</p>
+          <div id="adminList" class="list"></div>
+        </section>
+
+        <section id="page_verify" class="hidden">
+          <div class="grid two">
+            <div><label>رقم الملف</label><input id="verifyNo" /></div>
+            <div><label>&nbsp;</label><button class="btn pri" id="btnVerify">تحقق</button></div>
+          </div>
+          <div id="verifyOut" class="item hidden" style="margin-top:8px"></div>
+        </section>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">ملخص</div>
+      <div class="bd">
+        <div>عدد الملفات: <b id="count">0</b></div>
+        <div style="margin-top:8px">آخر ملفات:</div>
+        <div id="latest" class="list" style="margin-top:8px"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const KEY='college_simple_v1';
+const DOCS={RES:['استمارة الترشح','مقررة الترقية','الملف العلمي'],IMP:['شهادة عمل','استمارة تحسين المستوى','الملف العلمي'],PHD:['استمارة ممضاة من المشرف','شهادة بطالة','الملف العلمي']};
+const uid=()=>Math.random().toString(16).slice(2,8);
+const get=()=>JSON.parse(localStorage.getItem(KEY)||'null')||{role:'visitor',open:true,apps:[],current:null};
+const set=(s)=>localStorage.setItem(KEY,JSON.stringify(s));
+let S=get();
+
+const pages=['home','register','admin','verify'];
+function show(p){
+  pages.forEach(x=>document.getElementById('page_'+x).classList.toggle('hidden',x!==p));
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.page===p));
+  document.getElementById('title').textContent={home:'الرئيسية',register:'التسجيل',admin:'الإدارة',verify:'تحقق'}[p];
+  render();
+}
+
+document.getElementById('nav').onclick=e=>{const c=e.target.closest('.chip');if(c)show(c.dataset.page)};
+
+function currentApp(){return S.apps.find(a=>a.id===S.current);} 
+function nextNo(cat){return `${new Date().getFullYear()}-${cat}-${String(S.apps.filter(a=>a.category===cat).length+1).padStart(4,'0')}`;}
+
+function renderDocs(){
+  const cat=document.getElementById('category').value;
+  const holder=document.getElementById('docs');
+  holder.innerHTML='';
+  (DOCS[cat]||[]).forEach((d,i)=>holder.insertAdjacentHTML('beforeend',`<div><label>${d}</label><input data-doc="${i}" placeholder="اسم الملف (PDF)" /></div>`));
+}
+
+function fill(app){
+  ['category','name','email','phone','department','host','start','end','supervisor','goals'].forEach(id=>document.getElementById(id).value=app[id]||'');
+  document.getElementById('consent').checked=!!app.consent;
+  document.getElementById('appNo').textContent=app.number;
+  document.getElementById('status').textContent=app.status;
+  renderDocs();
+  const docs=document.querySelectorAll('#docs input');
+  docs.forEach((el,i)=>el.value=app.docs?.[i]||'');
+}
+
+function readForm(){
+  const o={};
+  ['category','name','email','phone','department','host','start','end','supervisor','goals'].forEach(id=>o[id]=document.getElementById(id).value.trim());
+  o.consent=document.getElementById('consent').checked;
+  o.docs=[...document.querySelectorAll('#docs input')].map(i=>i.value.trim());
+  return o;
+}
+
+function validate(data){
+  const req=['category','name','email','phone','department','host','start','end','goals'];
+  const errs=[];
+  req.forEach(k=>!data[k]&&errs.push(`الحقل ${k} إجباري`));
+  if(data.category==='PHD'&&!data.supervisor) errs.push('المشرف إجباري لفئة PHD');
+  (DOCS[data.category]||[]).forEach((d,i)=>!data.docs[i]&&errs.push(`وثيقة ناقصة: ${d}`));
+  if(!data.consent) errs.push('الموافقة على معالجة المعطيات إجباري');
+  if(data.start && data.end && data.start>data.end) errs.push('تاريخ البداية يجب أن يكون قبل النهاية');
+  return errs;
+}
+
+function renderAdmin(){
+  const box=document.getElementById('adminList');
+  box.innerHTML=S.apps.map(a=>`<div class="item"><b>${a.number}</b> • ${a.name||'—'} • <span class="tag ${a.status==='SUBMITTED'?'ok':a.status==='REJECTED'?'bad':'warn2'}">${a.status}</span>
+  <div class="btns"><button class="btn ghost" onclick="setStatus('${a.id}','UNDER_REVIEW')">قيد الدراسة</button><button class="btn pri" onclick="setStatus('${a.id}','ACCEPTED')">قبول</button><button class="btn warn" onclick="setStatus('${a.id}','REJECTED')">رفض</button></div></div>`).join('')||'<div class="muted">لا توجد ملفات</div>';
+}
+window.setStatus=(id,status)=>{const a=S.apps.find(x=>x.id===id);if(!a)return;a.status=status;set(S);render();};
+
+function render(){
+  document.getElementById('pillRole').textContent='الدور: '+({visitor:'زائر',applicant:'مترشح',admin:'إدارة'}[S.role]||S.role);
+  document.getElementById('pillState').textContent='التسجيل: '+(S.open?'مفتوح':'مغلق');
+  document.getElementById('role').value=S.role;document.getElementById('open').value=String(S.open);
+  document.getElementById('count').textContent=S.apps.length;
+  document.getElementById('latest').innerHTML=S.apps.slice(0,5).map(a=>`<div class="item">${a.number} • ${a.name||'—'} • ${a.status}</div>`).join('')||'<div class="muted">لا يوجد</div>';
+  renderAdmin();
+  if(S.current){const app=currentApp();if(app)fill(app);}
+}
+
+// events
+document.getElementById('btnApplyRole').onclick=()=>{S.role=document.getElementById('role').value;S.open=document.getElementById('open').value==='true';set(S);show(S.role==='admin'?'admin':S.role==='applicant'?'register':'home');};
+document.getElementById('btnReset').onclick=()=>{if(confirm('حذف كل البيانات؟')){localStorage.removeItem(KEY);S=get();show('home');}};
+document.getElementById('category').onchange=()=>{renderDocs();document.getElementById('supervisorWrap').classList.toggle('hidden',document.getElementById('category').value!=='PHD');};
+
+document.getElementById('btnNew').onclick=()=>{
+  if(!S.open) return alert('التسجيل مغلق حاليا');
+  const cat=document.getElementById('category').value;
+  if(!cat) return alert('اختر الفئة أولا');
+  const app={id:uid(),number:nextNo(cat),status:'DRAFT',createdAt:new Date().toISOString(),category:cat};
+  S.apps.unshift(app);S.current=app.id;set(S);fill(app);render();
+};
+
+document.getElementById('btnSave').onclick=()=>{
+  const app=currentApp(); if(!app) return alert('أنشئ ملف جديد أولا');
+  if(app.status==='SUBMITTED') return alert('تم الإرسال النهائي، لا يمكن التعديل');
+  Object.assign(app,readForm(),{status:'DRAFT'});set(S);render();alert('تم الحفظ');
+};
+
+document.getElementById('btnSubmit').onclick=()=>{
+  if(!S.open) return alert('التسجيل مغلق حاليا');
+  const app=currentApp(); if(!app) return alert('أنشئ ملف جديد أولا');
+  const data=readForm(); const errs=validate(data);
+  document.getElementById('errors').innerHTML=errs.length?('• '+errs.join('<br>• ')):'';
+  if(errs.length) return;
+  Object.assign(app,data,{status:'SUBMITTED',submittedAt:new Date().toISOString()});set(S);render();alert('تم الإرسال النهائي بنجاح');
+};
+
+document.getElementById('btnVerify').onclick=()=>{
+  const no=document.getElementById('verifyNo').value.trim();
+  const app=S.apps.find(a=>a.number===no); const out=document.getElementById('verifyOut'); out.classList.remove('hidden');
+  out.innerHTML=app?`<b>${app.number}</b><div class="muted">الاسم: ${app.name||'—'} • الفئة: ${app.category||'—'} • الحالة: ${app.status}</div>`:'رقم ملف غير موجود';
+};
+
+show('home');
+</script>
+</body>
+</html>
