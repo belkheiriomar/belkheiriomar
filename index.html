@@ -2,224 +2,385 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>منصة التسجيل الداخلية للكلية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>منصة الترشح للتربص القصير المدى بالخارج - قرار 255 (فيفري 2024)</title>
   <style>
-    :root{--bg:#0b1220;--card:#12203b;--line:#274064;--text:#eaf1ff;--muted:#9fb2d6;--ok:#22c55e;--warn:#f59e0b;--bad:#ef4444;--pri:#2dd4bf}
-    *{box-sizing:border-box} body{margin:0;font-family:"Cairo",system-ui,sans-serif;background:var(--bg);color:var(--text)}
-    .top{position:sticky;top:0;background:#0b1220dd;backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .brand{font-weight:800} .chips{display:flex;gap:8px;flex-wrap:wrap} .chip{padding:8px 12px;border:1px solid var(--line);border-radius:999px;cursor:pointer}
-    .chip.active{border-color:var(--pri);background:#15344a}
-    .wrap{max-width:1100px;margin:16px auto;padding:0 16px;display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
-    @media(max-width:900px){.wrap{grid-template-columns:1fr}}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-    .hd{padding:12px 14px;border-bottom:1px solid var(--line);font-weight:700}.bd{padding:14px}
-    .grid{display:grid;gap:10px}.two{grid-template-columns:1fr 1fr}@media(max-width:700px){.two{grid-template-columns:1fr}}
-    label{display:block;font-size:12px;margin-bottom:4px;color:#d7e4ff;font-weight:700}
-    input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:#0f1a31;color:var(--text)}
-    textarea{min-height:88px}
-    .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.btn{border:0;padding:10px 12px;border-radius:10px;font-weight:800;cursor:pointer}
-    .btn.pri{background:linear-gradient(135deg,#2dd4bf,#22c55e);color:#052722}.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
-    .btn.warn{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#332100}
-    .tag{display:inline-block;padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-size:12px}
-    .ok{background:#153926;border-color:#2c8e4c}.warn2{background:#3a2a12;border-color:#b07a1b}.bad{background:#3e171d;border-color:#a43b4b}
-    .list{display:grid;gap:8px}.item{background:#0d182e;border:1px solid var(--line);border-radius:10px;padding:10px}
-    .muted{color:var(--muted);font-size:12px}.hidden{display:none}
+    :root {
+      --bg: #f3f7ff;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --line: #dbe6ff;
+      --primary: #0f4aa1;
+      --primary-light: #e8f0ff;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
+      --warn: #92400e;
+      --warn-bg: #fef3c7;
+      --danger: #991b1b;
+      --danger-bg: #fee2e2;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Cairo", "Segoe UI", Tahoma, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .header {
+      background: linear-gradient(120deg, #0b3b89, #0f4aa1);
+      color: #fff;
+      padding: 16px;
+      border-bottom: 4px solid #f9d449;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .header p {
+      margin: 8px 0 0;
+      opacity: 0.95;
+      font-size: 0.95rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 18px auto;
+      padding: 0 12px 20px;
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .container { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(15, 74, 161, 0.06);
+    }
+
+    .card h2 {
+      margin: 0;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 12px 14px;
+      font-size: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .card .body { padding: 14px; }
+
+    .grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .two { grid-template-columns: 1fr 1fr; }
+
+    @media (max-width: 700px) {
+      .two { grid-template-columns: 1fr; }
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      color: #1f3c73;
+      font-weight: 700;
+      font-size: 0.86rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid #c9d8fa;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 0.95rem;
+      background: #fff;
+      color: var(--text);
+    }
+
+    input[type="file"] {
+      padding: 8px;
+      background: #f8fbff;
+    }
+
+    textarea { min-height: 88px; resize: vertical; }
+
+    .help {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 3px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      border: 1px solid transparent;
+      margin-inline-start: 6px;
+    }
+
+    .required {
+      color: #fff;
+      background: #d12d2d;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-secondary { background: #edf3ff; color: #123f88; }
+
+    .status {
+      margin-top: 12px;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .status.show { display: block; }
+    .status.ok { background: var(--ok-bg); color: var(--ok); border: 1px solid #bbf7d0; }
+    .status.warn { background: var(--warn-bg); color: var(--warn); border: 1px solid #fde68a; }
+    .status.danger { background: var(--danger-bg); color: var(--danger); border: 1px solid #fecaca; }
+
+    ul {
+      margin: 8px 0 0;
+      padding-inline-start: 18px;
+    }
+
+    .docs-list li { margin-bottom: 8px; }
+
+    .small {
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .footer-note {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #5b6b8f;
+    }
   </style>
 </head>
 <body>
-  <div class="top">
-    <div class="brand">المنصة الداخلية للكلية</div>
-    <div class="chips" id="nav">
-      <div class="chip active" data-page="home">الرئيسية</div>
-      <div class="chip" data-page="register">التسجيل</div>
-      <div class="chip" data-page="admin">الإدارة</div>
-      <div class="chip" data-page="verify">تحقق</div>
-    </div>
-    <span class="tag" id="pillRole">الدور: زائر</span>
-    <span class="tag" id="pillState">التسجيل: —</span>
-  </div>
+  <header class="header">
+    <h1>منصة التسجيل الرقمي لتحميل ملفات الترشح للتربص القصير المدى بالخارج</h1>
+    <p>تطبيقا لأحكام القرار رقم 255 المؤرخ في فيفري 2024</p>
+  </header>
 
-  <div class="wrap">
-    <div class="card">
-      <div class="hd" id="title">الرئيسية</div>
-      <div class="bd">
-        <section id="page_home">
-          <p>نسخة مبسطة ومصححة لعملية التسجيل: <b>إنشاء ملف</b> → <b>حفظ</b> → <b>إرسال نهائي</b> مع التحقق من الحقول والوثائق.</p>
-          <div class="grid two">
-            <div><label>الدور</label><select id="role"><option value="visitor">زائر</option><option value="applicant">مترشح</option><option value="admin">إدارة</option></select></div>
-            <div><label>حالة التسجيل</label><select id="open"><option value="true">مفتوح</option><option value="false">مغلق</option></select></div>
+  <main class="container">
+    <section class="card">
+      <h2>استمارة الترشح الإلكترونية</h2>
+      <div class="body">
+        <div class="grid two">
+          <div>
+            <label for="fullName">الاسم واللقب <span class="badge required">إجباري</span></label>
+            <input id="fullName" placeholder="كما هو في الوثائق الرسمية" />
           </div>
-          <div class="btns"><button class="btn pri" id="btnApplyRole">تطبيق</button><button class="btn ghost" id="btnReset">إعادة ضبط البيانات</button></div>
-        </section>
-
-        <section id="page_register" class="hidden">
-          <div class="grid two">
-            <div><label>الفئة</label><select id="category"><option value="">اختر</option><option value="RES">RES</option><option value="IMP">IMP</option><option value="PHD">PHD</option></select></div>
-            <div><label>الاسم</label><input id="name" placeholder="الاسم واللقب" /></div>
-            <div><label>البريد الإلكتروني</label><input id="email" type="email" /></div>
-            <div><label>الهاتف</label><input id="phone" /></div>
-            <div><label>القسم</label><input id="department" /></div>
-            <div><label>المؤسسة المستقبلة</label><input id="host" /></div>
-            <div><label>بداية التربص</label><input id="start" type="date" /></div>
-            <div><label>نهاية التربص</label><input id="end" type="date" /></div>
-            <div class="hidden" id="supervisorWrap"><label>المشرف (إلزامي لـ PHD)</label><input id="supervisor" /></div>
+          <div>
+            <label for="grade">الرتبة / الصفة <span class="badge required">إجباري</span></label>
+            <select id="grade">
+              <option value="">اختر...</option>
+              <option>أستاذ التعليم العالي</option>
+              <option>أستاذ محاضر (أ)</option>
+              <option>أستاذ محاضر (ب)</option>
+              <option>أستاذ مساعد</option>
+              <option>طالب دكتوراه</option>
+              <option>باحث دائم</option>
+            </select>
           </div>
-
-          <div style="margin-top:10px">
-            <label>الأهداف</label><textarea id="goals"></textarea>
+          <div>
+            <label for="faculty">الكلية / المعهد <span class="badge required">إجباري</span></label>
+            <input id="faculty" />
           </div>
-
-          <div class="item" style="margin-top:10px">
-            <b>الوثائق (محاكاة رفع):</b>
-            <div class="muted">أدخل اسم الملف لكل وثيقة إلزامية.</div>
-            <div id="docs" class="list" style="margin-top:8px"></div>
+          <div>
+            <label for="department">القسم / المخبر <span class="badge required">إجباري</span></label>
+            <input id="department" />
           </div>
-
-          <label style="margin-top:10px"><input type="checkbox" id="consent" /> أوافق على معالجة المعطيات الشخصية</label>
-          <div id="errors" class="muted" style="color:#ffc7cf"></div>
-          <div class="btns">
-            <button class="btn pri" id="btnSave">حفظ كمسودة</button>
-            <button class="btn warn" id="btnSubmit">إرسال نهائي</button>
-            <button class="btn ghost" id="btnNew">ملف جديد</button>
+          <div>
+            <label for="email">البريد الإلكتروني المهني <span class="badge required">إجباري</span></label>
+            <input id="email" type="email" />
           </div>
-          <div class="item" style="margin-top:12px"><b>رقم الملف:</b> <span id="appNo">—</span> • <b>الحالة:</b> <span id="status">DRAFT</span></div>
-        </section>
-
-        <section id="page_admin" class="hidden">
-          <p class="muted">لوحة الإدارة: عرض الملفات وتعديل الحالة.</p>
-          <div id="adminList" class="list"></div>
-        </section>
-
-        <section id="page_verify" class="hidden">
-          <div class="grid two">
-            <div><label>رقم الملف</label><input id="verifyNo" /></div>
-            <div><label>&nbsp;</label><button class="btn pri" id="btnVerify">تحقق</button></div>
+          <div>
+            <label for="phone">رقم الهاتف <span class="badge required">إجباري</span></label>
+            <input id="phone" type="tel" />
           </div>
-          <div id="verifyOut" class="item hidden" style="margin-top:8px"></div>
-        </section>
+          <div>
+            <label for="hostInstitution">المؤسسة الأجنبية المستقبلة <span class="badge required">إجباري</span></label>
+            <input id="hostInstitution" placeholder="اسم الجامعة/المخبر بالخارج" />
+          </div>
+          <div>
+            <label for="country">بلد التربص <span class="badge required">إجباري</span></label>
+            <input id="country" />
+          </div>
+          <div>
+            <label for="startDate">تاريخ بداية التربص <span class="badge required">إجباري</span></label>
+            <input id="startDate" type="date" />
+          </div>
+          <div>
+            <label for="endDate">تاريخ نهاية التربص <span class="badge required">إجباري</span></label>
+            <input id="endDate" type="date" />
+          </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <label for="motivation">أهداف التربص ومردوده على المؤسسة <span class="badge required">إجباري</span></label>
+          <textarea id="motivation" placeholder="حدد الأهداف العلمية/البيداغوجية، الشراكات المتوقعة، وآلية نقل الخبرة."></textarea>
+        </div>
+
+        <div style="margin-top: 14px;">
+          <label>تحميل الملفات الإلزامية (PDF فقط)</label>
+          <div class="help">الحد الأقصى لكل ملف: 5MB. يجب إرفاق كل الوثائق قبل الإرسال النهائي.</div>
+          <ul class="docs-list" id="docsList"></ul>
+        </div>
+
+        <label style="margin-top: 10px; display:block;">
+          <input id="consent" type="checkbox" style="width:auto; margin-inline-end:6px;" />
+          أصرّح بصحة المعلومات والوثائق وأوافق على معالجة البيانات الشخصية وفق التنظيم المعمول به.
+        </label>
+
+        <div class="actions">
+          <button class="btn-secondary" id="saveDraft">حفظ كمسودة</button>
+          <button class="btn-primary" id="submitBtn">إرسال ملف الترشح</button>
+        </div>
+
+        <div id="statusBox" class="status"></div>
       </div>
-    </div>
+    </section>
 
-    <div class="card">
-      <div class="hd">ملخص</div>
-      <div class="bd">
-        <div>عدد الملفات: <b id="count">0</b></div>
-        <div style="margin-top:8px">آخر ملفات:</div>
-        <div id="latest" class="list" style="margin-top:8px"></div>
+    <aside class="card">
+      <h2>دليل الوثائق المطلوبة</h2>
+      <div class="body">
+        <p class="small">القائمة التالية قابلة للتكييف داخليا حسب تعليمة المؤسسة وتفصيل القرار 255:</p>
+        <ul>
+          <li>طلب خطي ممضى من المعني.</li>
+          <li>السيرة الذاتية محيّنة.</li>
+          <li>نسخة من جواز السفر ساري الصلاحية.</li>
+          <li>دعوة أو رسالة قبول من المؤسسة المستقبلة.</li>
+          <li>مشروع برنامج التربص / مخطط العمل.</li>
+          <li>شهادة عمل أو شهادة تسجيل (حسب الصفة).</li>
+          <li>محضر موافقة الهيئات العلمية المختصة (عند الاقتضاء).</li>
+        </ul>
+
+        <p class="footer-note">رقم تسجيل الملف يُنشأ تلقائيا عند الإرسال النهائي ويظهر للمتقدم بعد التحقق.</p>
       </div>
-    </div>
-  </div>
+    </aside>
+  </main>
 
-<script>
-const KEY='college_simple_v1';
-const DOCS={RES:['استمارة الترشح','مقررة الترقية','الملف العلمي'],IMP:['شهادة عمل','استمارة تحسين المستوى','الملف العلمي'],PHD:['استمارة ممضاة من المشرف','شهادة بطالة','الملف العلمي']};
-const uid=()=>Math.random().toString(16).slice(2,8);
-const get=()=>JSON.parse(localStorage.getItem(KEY)||'null')||{role:'visitor',open:true,apps:[],current:null};
-const set=(s)=>localStorage.setItem(KEY,JSON.stringify(s));
-let S=get();
+  <script>
+    const REQUIRED_DOCS = [
+      'طلب خطي ممضى',
+      'السيرة الذاتية',
+      'نسخة جواز السفر',
+      'دعوة/رسالة قبول من المؤسسة المستقبلة',
+      'برنامج التربص',
+      'وثيقة الوضعية المهنية أو العلمية'
+    ];
 
-const pages=['home','register','admin','verify'];
-function show(p){
-  pages.forEach(x=>document.getElementById('page_'+x).classList.toggle('hidden',x!==p));
-  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.page===p));
-  document.getElementById('title').textContent={home:'الرئيسية',register:'التسجيل',admin:'الإدارة',verify:'تحقق'}[p];
-  render();
-}
+    const docsList = document.getElementById('docsList');
+    const statusBox = document.getElementById('statusBox');
 
-document.getElementById('nav').onclick=e=>{const c=e.target.closest('.chip');if(c)show(c.dataset.page)};
+    REQUIRED_DOCS.forEach((doc, idx) => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <label for="doc_${idx}">${doc} <span class="badge required">إجباري</span></label>
+        <input id="doc_${idx}" type="file" accept="application/pdf" />
+      `;
+      docsList.appendChild(li);
+    });
 
-function currentApp(){return S.apps.find(a=>a.id===S.current);} 
-function nextNo(cat){return `${new Date().getFullYear()}-${cat}-${String(S.apps.filter(a=>a.category===cat).length+1).padStart(4,'0')}`;}
+    function showStatus(type, message) {
+      statusBox.className = `status show ${type}`;
+      statusBox.textContent = message;
+    }
 
-function renderDocs(){
-  const cat=document.getElementById('category').value;
-  const holder=document.getElementById('docs');
-  holder.innerHTML='';
-  (DOCS[cat]||[]).forEach((d,i)=>holder.insertAdjacentHTML('beforeend',`<div><label>${d}</label><input data-doc="${i}" placeholder="اسم الملف (PDF)" /></div>`));
-}
+    function validateForm() {
+      const requiredInputs = [
+        'fullName', 'grade', 'faculty', 'department', 'email',
+        'phone', 'hostInstitution', 'country', 'startDate', 'endDate', 'motivation'
+      ];
 
-function fill(app){
-  ['category','name','email','phone','department','host','start','end','supervisor','goals'].forEach(id=>document.getElementById(id).value=app[id]||'');
-  document.getElementById('consent').checked=!!app.consent;
-  document.getElementById('appNo').textContent=app.number;
-  document.getElementById('status').textContent=app.status;
-  renderDocs();
-  const docs=document.querySelectorAll('#docs input');
-  docs.forEach((el,i)=>el.value=app.docs?.[i]||'');
-}
+      const errors = [];
+      requiredInputs.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) {
+          errors.push(`الحقل "${el.previousElementSibling?.textContent?.replace('إجباري', '').trim() || id}" مطلوب.`);
+        }
+      });
 
-function readForm(){
-  const o={};
-  ['category','name','email','phone','department','host','start','end','supervisor','goals'].forEach(id=>o[id]=document.getElementById(id).value.trim());
-  o.consent=document.getElementById('consent').checked;
-  o.docs=[...document.querySelectorAll('#docs input')].map(i=>i.value.trim());
-  return o;
-}
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+      if (startDate && endDate && startDate > endDate) {
+        errors.push('تاريخ البداية يجب أن يسبق تاريخ النهاية.');
+      }
 
-function validate(data){
-  const req=['category','name','email','phone','department','host','start','end','goals'];
-  const errs=[];
-  req.forEach(k=>!data[k]&&errs.push(`الحقل ${k} إجباري`));
-  if(data.category==='PHD'&&!data.supervisor) errs.push('المشرف إجباري لفئة PHD');
-  (DOCS[data.category]||[]).forEach((d,i)=>!data.docs[i]&&errs.push(`وثيقة ناقصة: ${d}`));
-  if(!data.consent) errs.push('الموافقة على معالجة المعطيات إجباري');
-  if(data.start && data.end && data.start>data.end) errs.push('تاريخ البداية يجب أن يكون قبل النهاية');
-  return errs;
-}
+      REQUIRED_DOCS.forEach((_, idx) => {
+        const f = document.getElementById(`doc_${idx}`).files[0];
+        if (!f) {
+          errors.push(`الوثيقة رقم ${idx + 1} غير مرفقة.`);
+          return;
+        }
+        if (f.type !== 'application/pdf') {
+          errors.push(`الوثيقة رقم ${idx + 1} يجب أن تكون بصيغة PDF.`);
+        }
+        if (f.size > 5 * 1024 * 1024) {
+          errors.push(`الوثيقة رقم ${idx + 1} تجاوزت 5MB.`);
+        }
+      });
 
-function renderAdmin(){
-  const box=document.getElementById('adminList');
-  box.innerHTML=S.apps.map(a=>`<div class="item"><b>${a.number}</b> • ${a.name||'—'} • <span class="tag ${a.status==='SUBMITTED'?'ok':a.status==='REJECTED'?'bad':'warn2'}">${a.status}</span>
-  <div class="btns"><button class="btn ghost" onclick="setStatus('${a.id}','UNDER_REVIEW')">قيد الدراسة</button><button class="btn pri" onclick="setStatus('${a.id}','ACCEPTED')">قبول</button><button class="btn warn" onclick="setStatus('${a.id}','REJECTED')">رفض</button></div></div>`).join('')||'<div class="muted">لا توجد ملفات</div>';
-}
-window.setStatus=(id,status)=>{const a=S.apps.find(x=>x.id===id);if(!a)return;a.status=status;set(S);render();};
+      if (!document.getElementById('consent').checked) {
+        errors.push('يجب الموافقة على تصريح صحة البيانات ومعالجتها.');
+      }
 
-function render(){
-  document.getElementById('pillRole').textContent='الدور: '+({visitor:'زائر',applicant:'مترشح',admin:'إدارة'}[S.role]||S.role);
-  document.getElementById('pillState').textContent='التسجيل: '+(S.open?'مفتوح':'مغلق');
-  document.getElementById('role').value=S.role;document.getElementById('open').value=String(S.open);
-  document.getElementById('count').textContent=S.apps.length;
-  document.getElementById('latest').innerHTML=S.apps.slice(0,5).map(a=>`<div class="item">${a.number} • ${a.name||'—'} • ${a.status}</div>`).join('')||'<div class="muted">لا يوجد</div>';
-  renderAdmin();
-  if(S.current){const app=currentApp();if(app)fill(app);}
-}
+      return errors;
+    }
 
-// events
-document.getElementById('btnApplyRole').onclick=()=>{S.role=document.getElementById('role').value;S.open=document.getElementById('open').value==='true';set(S);show(S.role==='admin'?'admin':S.role==='applicant'?'register':'home');};
-document.getElementById('btnReset').onclick=()=>{if(confirm('حذف كل البيانات؟')){localStorage.removeItem(KEY);S=get();show('home');}};
-document.getElementById('category').onchange=()=>{renderDocs();document.getElementById('supervisorWrap').classList.toggle('hidden',document.getElementById('category').value!=='PHD');};
+    function generateTrackingNumber() {
+      const d = new Date();
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const serial = Math.floor(Math.random() * 9000) + 1000;
+      return `STAGE-${yyyy}${mm}-${serial}`;
+    }
 
-document.getElementById('btnNew').onclick=()=>{
-  if(!S.open) return alert('التسجيل مغلق حاليا');
-  const cat=document.getElementById('category').value;
-  if(!cat) return alert('اختر الفئة أولا');
-  const app={id:uid(),number:nextNo(cat),status:'DRAFT',createdAt:new Date().toISOString(),category:cat};
-  S.apps.unshift(app);S.current=app.id;set(S);fill(app);render();
-};
+    document.getElementById('saveDraft').addEventListener('click', () => {
+      showStatus('warn', 'تم حفظ البيانات كمسودة محلية. الرجاء استكمال كل الوثائق قبل الإرسال النهائي.');
+    });
 
-document.getElementById('btnSave').onclick=()=>{
-  const app=currentApp(); if(!app) return alert('أنشئ ملف جديد أولا');
-  if(app.status==='SUBMITTED') return alert('تم الإرسال النهائي، لا يمكن التعديل');
-  Object.assign(app,readForm(),{status:'DRAFT'});set(S);render();alert('تم الحفظ');
-};
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      const errors = validateForm();
+      if (errors.length > 0) {
+        showStatus('danger', `تعذر الإرسال: ${errors[0]}${errors.length > 1 ? ` (و${errors.length - 1} أخطاء إضافية)` : ''}`);
+        return;
+      }
 
-document.getElementById('btnSubmit').onclick=()=>{
-  if(!S.open) return alert('التسجيل مغلق حاليا');
-  const app=currentApp(); if(!app) return alert('أنشئ ملف جديد أولا');
-  const data=readForm(); const errs=validate(data);
-  document.getElementById('errors').innerHTML=errs.length?('• '+errs.join('<br>• ')):'';
-  if(errs.length) return;
-  Object.assign(app,data,{status:'SUBMITTED',submittedAt:new Date().toISOString()});set(S);render();alert('تم الإرسال النهائي بنجاح');
-};
-
-document.getElementById('btnVerify').onclick=()=>{
-  const no=document.getElementById('verifyNo').value.trim();
-  const app=S.apps.find(a=>a.number===no); const out=document.getElementById('verifyOut'); out.classList.remove('hidden');
-  out.innerHTML=app?`<b>${app.number}</b><div class="muted">الاسم: ${app.name||'—'} • الفئة: ${app.category||'—'} • الحالة: ${app.status}</div>`:'رقم ملف غير موجود';
-};
-
-show('home');
-</script>
+      const trackingNumber = generateTrackingNumber();
+      showStatus('ok', `تم إرسال ملف الترشح بنجاح. رقم التتبع الخاص بك: ${trackingNumber}`);
+    });
+  </script>
 </body>
 </html>
